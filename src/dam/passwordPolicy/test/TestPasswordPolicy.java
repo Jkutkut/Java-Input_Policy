@@ -3,8 +3,7 @@ package dam.passwordPolicy.test;
 import dam.passwordPolicy.PasswordPolicy;
 import org.testng.annotations.*;
 
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertFalse;
+import static org.testng.AssertJUnit.*;
 
 public class TestPasswordPolicy {
     PasswordPolicy passwordPolicy;
@@ -14,12 +13,47 @@ public class TestPasswordPolicy {
     }
 
     @Test
+    public void testInvalidFormat() {
+        String[] passwords = {
+            null,
+            "",
+            " ",
+            "\0"
+        };
+        for (String password : passwords) {
+            if (passwordPolicy.isValid(password)) {
+                System.out.println(password + " is valid");
+                assertFalse(passwordPolicy.isValid(password));
+            }
+        }
+    }
+
+    @Test
+    public void testMinLength() {
+        String[] passwords = {
+            "aC#12",
+            "C1a$2"
+        };
+        assertFalse(passwordPolicy.isValid(passwords[0]));
+        assertFalse(passwordPolicy.isValid(passwords[1]));
+    }
+
+    @Test
+    public void testMaxLength() {
+        String[] passwords = {
+                "aC#12jfklasdjflkasjdklfjasldfjaklsdjflasdjflasdjlfajsdklfjklsdjflksadjfkljasdl",
+                "C1jfklsdjafklsajlfjsdklfjsdklajfklsdajlfdsfljsdaklfjsdklfjlkasdfsdjklkjla$2"
+        };
+        assertFalse(passwordPolicy.isValid(passwords[0]));
+        assertFalse(passwordPolicy.isValid(passwords[1]));
+    }
+
+    @Test
     public void testPasswordPolicy() {
         String[] passwords = {
             "123456",
             "123456789",
             "12345678",
-            "",
             "a",
             "abc",
             "abc123",
@@ -30,7 +64,20 @@ public class TestPasswordPolicy {
         for (String password : passwords) {
             if (passwordPolicy.isValid(password)) {
                 System.out.println(password + " is valid");
-                assertEquals(passwordPolicy.isValid(password), false);
+                assertEquals(false, passwordPolicy.isValid(password));
+            }
+        }
+    }
+
+    @Test
+    public void testValid() {
+        String[] passwords = {
+            "holaQue42$"
+        };
+        for (String password : passwords) {
+            if (!passwordPolicy.isValid(password)) {
+                System.out.println(password + " is invalid");
+                assertEquals(true, passwordPolicy.isValid(password));
             }
         }
     }
