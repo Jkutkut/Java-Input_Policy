@@ -3,6 +3,8 @@ package dam.passwordPolicy;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import dam.passwordPolicy.exception.InvalidDataException;
+
 public class PasswordPolicy {
 
     private static final double SIMILARITY_THRESHOLD = 0.75;
@@ -38,6 +40,8 @@ public class PasswordPolicy {
         containsAtLeast.add("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ");
     }
 
+    // GETTERS
+
     public boolean isValid(String password) {
         for (int i = 0; i < tests.size(); i++) {
             if (!tests.get(i).test(password)) {
@@ -58,6 +62,31 @@ public class PasswordPolicy {
         }
         return true;
     }
+
+    // SETTERS
+
+    public void addTest(Predicate<String> test) {
+        if (test == null)
+            throw new InvalidDataException("Test cannot be null");
+        if (!tests.contains(test))
+            tests.add(test);
+    }
+
+    public void addDistinctString(String string) {
+        if (string == null)
+            throw new InvalidDataException("String cannot be null. Use the tests to check this.");
+        if (!distinctStrings.contains(string))
+            distinctStrings.add(string);
+    }
+    
+    public void addContainsAtLeast(String string) {
+        if (string == null)
+            throw new InvalidDataException("String cannot be null. Use the tests to check this.");
+        if (!containsAtLeast.contains(string))
+            containsAtLeast.add(string);
+    }
+
+    // TOOLS
 
     private static boolean stringsAlike(String s1, String s2) {
         return similarity(s1, s2) > SIMILARITY_THRESHOLD;
