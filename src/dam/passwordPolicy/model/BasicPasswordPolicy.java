@@ -18,12 +18,12 @@ public class BasicPasswordPolicy extends PasswordPolicy {
     }
 
     private void addDefaultTests() {
-        tests.add(FT_NN);
-        tests.add(FT_MIN_L);
-        tests.add(FT_MAX_L);
-        containsAtLeast.add(SPECIAL_CHARACTERS);
-        containsAtLeast.add("1234567890");
-        containsAtLeast.add("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü");
-        containsAtLeast.add("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ");
+        addTest(FT_NN, "Password cannot be null");
+        addTest(FT_MIN_L, "Password must be at least " + MIN_LENGTH + " characters");
+        addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
+        addContainsAtLeast(SPECIAL_CHARACTERS, "Password must contain at least 1 special character");
+        addContainsAtLeast("1234567890", "Password must contain at least 1 number");
+        addContainsAtLeast("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü", "Password must contain at least 1 lowercase letter");
+        addContainsAtLeast("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ", "Password must contain at least 1 uppercase letter");
     }
 }

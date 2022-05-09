@@ -1,15 +1,15 @@
 package dam.passwordPolicy.test;
 
-import dam.passwordPolicy.model.PasswordPolicy;
+import dam.passwordPolicy.model.BasicPasswordPolicy;
 import org.testng.annotations.*;
 
 import static org.testng.AssertJUnit.*;
 
 public class TestPasswordPolicy {
-    PasswordPolicy passwordPolicy;
+    BasicPasswordPolicy passwordPolicy;
     @BeforeClass
     public void setUpClass() {
-        passwordPolicy = new PasswordPolicy();
+        passwordPolicy = new BasicPasswordPolicy();
     }
 
     @Test
@@ -72,11 +72,12 @@ public class TestPasswordPolicy {
     @Test
     public void testValid() {
         String[] passwords = {
-            "holaQue42$"
+            "holaQue42&"
         };
         for (String password : passwords) {
             if (!passwordPolicy.isValid(password)) {
                 System.out.println(password + " is invalid");
+                passwordPolicy.validate(password);
                 assertEquals(true, passwordPolicy.isValid(password));
             }
         }
