@@ -37,6 +37,14 @@ public class PasswordPolicy {
     public PasswordPolicy() {
         tests = new ArrayList<Integer>();
         distinctStrings = new ArrayList<String>();
+
+        setDefaultTests();
+    }
+
+    private void setDefaultTests() {
+        for (int i = 0; i < CHECKERS.length; i++) {
+            tests.add(i);
+        }
     }
 
     public void addDistinctStringTest(String s) {
