@@ -19,13 +19,20 @@ public class PasswordPolicy {
     private static final Predicate<String> FT_MAX_L = (s) -> s.length() <= MAX_LENGTH;
 
     private final ArrayList<Predicate<String>> tests;
+    private final ArrayList<String> testsMsgs;
     private final ArrayList<String> distinctStrings;
+    private final ArrayList<String> distinctStringsMsgs;
     private final ArrayList<String> containsAtLeast;
+    private final ArrayList<String> containsAtLeastMsgs;
 
     public PasswordPolicy() {
         tests = new ArrayList<Predicate<String>>();
         distinctStrings = new ArrayList<String>();
         containsAtLeast = new ArrayList<String>();
+
+        testsMsgs = new ArrayList<String>();
+        distinctStringsMsgs = new ArrayList<String>();
+        containsAtLeastMsgs = new ArrayList<String>();
 
         addDefaultTests();
     }
@@ -65,25 +72,37 @@ public class PasswordPolicy {
 
     // SETTERS
 
-    public void addTest(Predicate<String> test) {
+    public void addTest(Predicate<String> test, String msg) {
         if (test == null)
             throw new InvalidDataException("Test cannot be null");
-        if (!tests.contains(test))
-            tests.add(test);
+        if (msg == null)
+            throw new InvalidDataException("Message cannot be null");
+        if (tests.contains(test))
+            return;
+        tests.add(test);
+        testsMsgs.add(msg);
     }
 
-    public void addDistinctString(String string) {
+    public void addDistinctString(String string, String msg) {
         if (string == null)
             throw new InvalidDataException("String cannot be null. Use the tests to check this.");
-        if (!distinctStrings.contains(string))
-            distinctStrings.add(string);
+        if (msg == null)
+            throw new InvalidDataException("Message cannot be null");
+        if (distinctStrings.contains(string))
+            return;
+        distinctStrings.add(string);
+        distinctStringsMsgs.add(msg);
     }
-    
-    public void addContainsAtLeast(String string) {
+
+    public void addContainsAtLeast(String string, String msg) {
         if (string == null)
             throw new InvalidDataException("String cannot be null. Use the tests to check this.");
-        if (!containsAtLeast.contains(string))
-            containsAtLeast.add(string);
+        if (msg == null)
+            throw new InvalidDataException("Message cannot be null");
+        if (containsAtLeast.contains(string))
+            return;
+        containsAtLeast.add(string);
+        containsAtLeastMsgs.add(msg);
     }
 
     // TOOLS
