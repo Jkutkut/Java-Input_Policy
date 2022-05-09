@@ -1,9 +1,9 @@
-package dam.passwordPolicy;
+package dam.passwordPolicy.model;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import dam.passwordPolicy.exception.InvalidDataException;
+import dam.exception.InvalidDataException;
 
 public class PasswordPolicy {
 

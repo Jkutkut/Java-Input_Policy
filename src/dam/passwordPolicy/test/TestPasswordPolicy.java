@@ -1,6 +1,6 @@
 package dam.passwordPolicy.test;
 
-import dam.passwordPolicy.PasswordPolicy;
+import dam.passwordPolicy.model.PasswordPolicy;
 import org.testng.annotations.*;
 
 import static org.testng.AssertJUnit.*;
