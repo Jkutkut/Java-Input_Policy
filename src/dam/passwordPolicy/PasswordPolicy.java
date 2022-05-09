@@ -50,24 +50,34 @@ public class PasswordPolicy {
     // GETTERS
 
     public boolean isValid(String password) {
-        for (int i = 0; i < tests.size(); i++) {
-            if (!tests.get(i).test(password)) {
+        int i;
+        for (i = 0; i < tests.size(); i++)
+            if (!tests.get(i).test(password))
                 return false;
-            }
-        }
 
-        for (int i = 0; i < distinctStrings.size(); i++) {
-            if (stringsAlike(password, distinctStrings.get(i))) {
+        for (i = 0; i < distinctStrings.size(); i++)
+            if (stringsAlike(password, distinctStrings.get(i)))
                 return false;
-            }
-        }
 
-        for (int i = 0; i < containsAtLeast.size(); i++) {
-            if (!password.contains(containsAtLeast.get(i))) {
+        for (i = 0; i < containsAtLeast.size(); i++)
+            if (!password.contains(containsAtLeast.get(i)))
                 return false;
-            }
-        }
         return true;
+    }
+
+    public void validate(String password) throws InvalidDataException {
+        int i;
+        for (i = 0; i < tests.size(); i++)
+            if (!tests.get(i).test(password))
+                throw new InvalidDataException(testsMsgs.get(i));
+
+        for (i = 0; i < distinctStrings.size(); i++)
+            if (stringsAlike(password, distinctStrings.get(i)))
+                throw new InvalidDataException(distinctStringsMsgs.get(i));
+
+        for (i = 0; i < containsAtLeast.size(); i++)
+            if (!password.contains(containsAtLeast.get(i)))
+                throw new InvalidDataException(containsAtLeastMsgs.get(i));
     }
 
     // SETTERS
