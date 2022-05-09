@@ -9,21 +9,12 @@ public class PasswordPolicy {
 
     private static final double SIMILARITY_THRESHOLD = 0.75;
 
-    private static final int MIN_LENGTH = 8;
-    private static final int MAX_LENGTH = 20;
-
-    private static final String SPECIAL_CHARACTERS = "&+_*";
-
-    private static final Predicate<String> FT_NN = (s) -> s != null;
-    private static final Predicate<String> FT_MIN_L = (s) -> s.length() >= MIN_LENGTH;
-    private static final Predicate<String> FT_MAX_L = (s) -> s.length() <= MAX_LENGTH;
-
-    private final ArrayList<Predicate<String>> tests;
-    private final ArrayList<String> testsMsgs;
-    private final ArrayList<String> distinctStrings;
-    private final ArrayList<String> distinctStringsMsgs;
-    private final ArrayList<String> containsAtLeast;
-    private final ArrayList<String> containsAtLeastMsgs;
+    protected final ArrayList<Predicate<String>> tests;
+    protected final ArrayList<String> testsMsgs;
+    protected final ArrayList<String> distinctStringsMsgs;
+    protected final ArrayList<String> distinctStrings;
+    protected final ArrayList<String> containsAtLeast;
+    protected final ArrayList<String> containsAtLeastMsgs;
 
     public PasswordPolicy() {
         tests = new ArrayList<Predicate<String>>();
@@ -33,18 +24,6 @@ public class PasswordPolicy {
         testsMsgs = new ArrayList<String>();
         distinctStringsMsgs = new ArrayList<String>();
         containsAtLeastMsgs = new ArrayList<String>();
-
-        addDefaultTests();
-    }
-
-    private void addDefaultTests() {
-        tests.add(FT_NN);
-        tests.add(FT_MIN_L);
-        tests.add(FT_MAX_L);
-        containsAtLeast.add(SPECIAL_CHARACTERS);
-        containsAtLeast.add("1234567890");
-        containsAtLeast.add("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü");
-        containsAtLeast.add("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ");
     }
 
     // GETTERS
