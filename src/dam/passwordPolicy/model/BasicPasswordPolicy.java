@@ -1,5 +1,7 @@
 package dam.passwordPolicy.model;
 
+import dam.exception.InvalidDataException;
+
 import java.util.function.Predicate;
 
 public class BasicPasswordPolicy extends PasswordPolicy {
@@ -22,7 +24,7 @@ public class BasicPasswordPolicy extends PasswordPolicy {
         addTest(FT_MIN_L, "Password must be at least " + MIN_LENGTH + " characters");
         addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
 
-        addContainsAtLeast(SPECIAL_CHARACTERS, "Password must contain at least 1 special character");
+        addContainsAtLeast(SPECIAL_CHARACTERS, "Password must contain at least 1 special character (" + SPECIAL_CHARACTERS + ")");
         addContainsAtLeast("1234567890", "Password must contain at least 1 number");
         addContainsAtLeast("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü", "Password must contain at least 1 lowercase letter");
         addContainsAtLeast("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ", "Password must contain at least 1 uppercase letter");
@@ -39,5 +41,11 @@ public class BasicPasswordPolicy extends PasswordPolicy {
 
     public boolean isValid(String password, String user) {
         return super.isValid(password) && !stringsAlike(user, password);
+    }
+
+    public void validate(String password, String user) {
+        super.validate(password);
+        if (stringsAlike(user, password))
+            throw new InvalidDataException("Password cannot be similar to the user name");
     }
 }
