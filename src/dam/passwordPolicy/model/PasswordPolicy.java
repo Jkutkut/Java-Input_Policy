@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import dam.exception.InvalidDataException;
 
+/**
+ * @author Jkutkut
+ */
 public class PasswordPolicy {
 
     /**
@@ -149,6 +152,11 @@ public class PasswordPolicy {
 
     // SETTERS
 
+    /**
+     * Adds a test to the list of tests to verify.
+     * @param test The test to add. Should return true if the password is valid, false otherwise.
+     * @param msg The message to display if the test fails.
+     */
     public void addTest(Predicate<String> test, String msg) {
         if (test == null)
             throw new InvalidDataException("Test cannot be null");
@@ -160,6 +168,11 @@ public class PasswordPolicy {
         testsMsgs.add(msg);
     }
 
+    /**
+     * Adds a string to the list of strings that cannot be found in the password.
+     * @param string The string to add.
+     * @param msg The message to display if the string is found in the password.
+     */
     public void addDistinctString(String string, String msg) {
         if (string == null)
             throw new InvalidDataException("String cannot be null. Use the tests to check this.");
@@ -171,6 +184,11 @@ public class PasswordPolicy {
         distinctStringsMsgs.add(msg);
     }
 
+    /**
+     * Adds a string to the list of strings that must be found in the password.
+     * @param string The string to add.
+     * @param msg The message to display if the string is not found in the password.
+     */
     public void addContainsAtLeast(String string, String msg) {
         if (string == null)
             throw new InvalidDataException("String cannot be null. Use the tests to check this.");
@@ -184,10 +202,25 @@ public class PasswordPolicy {
 
     // TOOLS
 
+    /**
+     * Checks if the given string is similar to the given other string.
+     * @param s1 The first string.
+     * @param s2 The second string.
+     * @return True if the strings are similar, false otherwise.
+     *
+     * @see #similarity(String, String)
+     * @see #SIMILARITY_THRESHOLD
+     */
     protected static boolean stringsAlike(String s1, String s2) {
         return similarity(s1, s2) > SIMILARITY_THRESHOLD;
     }
 
+    /**
+     * Calculates the similarity between two strings.
+     * @param s1 The first string.
+     * @param s2 The second string.
+     * @return The similarity percentage (0-1) between the two strings.
+     */
     private static double similarity(String s1, String s2) {
         String longer = s1, shorter = s2;
         if (s1.length() < s2.length()) { // longer should always have greater length
@@ -201,7 +234,14 @@ public class PasswordPolicy {
     }
 
     /**
+     * Calculates the Levenshtein distance between two strings.
+     * <br>
+     * Based on the algorithm found here:
+     * <br>
      * http://rosettacode.org/wiki/Levenshtein_distance#Java
+     * @param s1 The first string.
+     * @param s2 The second string.
+     * @return The Levenshtein distance between the two strings.
      */
     private static int levenshteinDist(String s1, String s2) {
         s1 = s1.toLowerCase();
