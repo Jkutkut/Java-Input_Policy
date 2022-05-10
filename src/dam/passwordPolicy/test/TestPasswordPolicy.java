@@ -5,6 +5,9 @@ import org.testng.annotations.*;
 
 import static org.testng.AssertJUnit.*;
 
+/**
+ * @author jkutkut
+ */
 public class TestPasswordPolicy {
     BasicPasswordPolicy passwordPolicy;
     @BeforeClass

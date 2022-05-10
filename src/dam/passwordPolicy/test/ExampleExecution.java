@@ -4,6 +4,9 @@ import dam.passwordPolicy.model.BasicPasswordPolicy;
 
 import java.util.Scanner;
 
+/**
+ * @author jkutkut
+ */
 public class ExampleExecution {
     private static Scanner sc;
 

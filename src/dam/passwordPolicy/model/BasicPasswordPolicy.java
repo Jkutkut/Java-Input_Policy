@@ -4,6 +4,11 @@ import dam.exception.InvalidDataException;
 
 import java.util.function.Predicate;
 
+/**
+ * Basic password policy with some rules.
+ *
+ * @author jkutkut
+ */
 public class BasicPasswordPolicy extends PasswordPolicy {
     private static final int MIN_LENGTH = 8;
     private static final int MAX_LENGTH = 20;
