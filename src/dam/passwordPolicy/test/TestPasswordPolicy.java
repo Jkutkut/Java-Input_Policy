@@ -70,9 +70,38 @@ public class TestPasswordPolicy {
     }
 
     @Test
+    public void testSpecialChars() {
+        String[] passwords = {
+            "aStClp&42 ",
+            "jfkds fdS4#",
+            " jfkdsfdS4$"
+        };
+        for (String password : passwords) {
+            if (passwordPolicy.isValid(password)) {
+                System.out.println(password + " is valid");
+                assertEquals(false, passwordPolicy.isValid(password));
+            }
+        }
+    }
+
+    @Test
+    public void testSimilar() {
+        String[] passwords = {
+                "hola1234A&&"
+        };
+        for (String password : passwords) {
+            if (passwordPolicy.isValid(password)) {
+                System.out.println(password + " is valid");
+                assertEquals(false, passwordPolicy.isValid(password));
+
+            }
+        }
+    }
+
+    @Test
     public void testValid() {
         String[] passwords = {
-            "holaQue42&"
+            "aStClp&42"
         };
         for (String password : passwords) {
             if (!passwordPolicy.isValid(password)) {

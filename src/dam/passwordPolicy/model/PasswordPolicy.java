@@ -8,7 +8,7 @@ import dam.exception.InvalidDataException;
 
 public class PasswordPolicy {
 
-    private static final double SIMILARITY_THRESHOLD = 0.75;
+    private static final double SIMILARITY_THRESHOLD = 0.35;
 
     protected final ArrayList<Predicate<String>> tests;
     protected final ArrayList<String> testsMsgs;
@@ -42,6 +42,12 @@ public class PasswordPolicy {
         for (i = 0; i < containsAtLeast.size(); i++)
             if (!password.matches(String.format(".*[%s].*", containsAtLeast.get(i))))
                 return false;
+
+        String all = "";
+        for (i = 0; i < containsAtLeast.size(); i++)
+            all += containsAtLeast.get(i);
+        if (!password.matches(String.format("[%s]*", all)))
+            return false;
         return true;
     }
 
@@ -58,6 +64,11 @@ public class PasswordPolicy {
         for (i = 0; i < containsAtLeast.size(); i++)
             if (!password.matches(String.format(".*[%s].*", containsAtLeast.get(i))))
                 throw new InvalidDataException(containsAtLeastMsgs.get(i));
+        String all = "";
+        for (i = 0; i < containsAtLeast.size(); i++)
+            all += containsAtLeast.get(i);
+        if (!password.matches(String.format("[%s]*", all)))
+            throw new InvalidDataException("Password can only contain the following chars: " + all);
     }
 
     // SETTERS
