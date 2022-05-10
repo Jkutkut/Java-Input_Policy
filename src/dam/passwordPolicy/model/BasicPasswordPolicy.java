@@ -32,6 +32,9 @@ public class BasicPasswordPolicy extends PasswordPolicy {
         addDistinctString("password", errorDis);
         addDistinctString("constaseña", errorDis);
         addDistinctString("hola", errorDis);
+        addDistinctString("user", errorDis);
+        addDistinctString("root", errorDis);
+        addDistinctString("admin", errorDis);
     }
 
     public boolean isValid(String password, String user) {

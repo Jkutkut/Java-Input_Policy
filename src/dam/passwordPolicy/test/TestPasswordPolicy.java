@@ -99,6 +99,41 @@ public class TestPasswordPolicy {
     }
 
     @Test
+    public void testCommon() {
+        String[] passwords = {
+            "admin&42",
+            "fdSroot4#",
+            "dS4user$"
+        };
+        for (int i = 0; i < passwords.length; i++) {
+            if (passwordPolicy.isValid(passwords[i])) {
+                System.out.println(passwords[i] + " is valid");
+                assertEquals(false, passwordPolicy.isValid(passwords[i]));
+            }
+        }
+    }
+
+    @Test
+    public void testSameUser() {
+        String[] users = {
+                "xXluisGomezXx",
+                "6969LuisitoComunica",
+                "LuisoteElMaxote"
+        };
+        String[] passwords = {
+                "pLuisGomez4&",
+                "comunicaLuisito36969&",
+                "&LuisitoMaxote"
+        };
+        for (int i = 0; i < users.length; i++) {
+            if (passwordPolicy.isValid(passwords[i], users[i])) {
+                System.out.println(passwords[i] + " is valid");
+                assertEquals(false, passwordPolicy.isValid(passwords[i], users[i]));
+            }
+        }
+    }
+
+    @Test
     public void testValid() {
         String[] passwords = {
             "aStClp&42"
