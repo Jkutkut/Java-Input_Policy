@@ -2,6 +2,7 @@ package dam.passwordPolicy.model;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 import dam.exception.InvalidDataException;
 
@@ -39,7 +40,7 @@ public class PasswordPolicy {
                 return false;
 
         for (i = 0; i < containsAtLeast.size(); i++)
-            if (!password.contains(containsAtLeast.get(i)))
+            if (!password.matches(String.format(".*[%s].*", containsAtLeast.get(i))))
                 return false;
         return true;
     }
@@ -55,7 +56,7 @@ public class PasswordPolicy {
                 throw new InvalidDataException(distinctStringsMsgs.get(i));
 
         for (i = 0; i < containsAtLeast.size(); i++)
-            if (!password.contains(containsAtLeast.get(i)))
+            if (!password.matches(String.format(".*[%s].*", containsAtLeast.get(i))))
                 throw new InvalidDataException(containsAtLeastMsgs.get(i));
     }
 
@@ -96,7 +97,7 @@ public class PasswordPolicy {
 
     // TOOLS
 
-    private static boolean stringsAlike(String s1, String s2) {
+    protected static boolean stringsAlike(String s1, String s2) {
         return similarity(s1, s2) > SIMILARITY_THRESHOLD;
     }
 

@@ -21,9 +21,20 @@ public class BasicPasswordPolicy extends PasswordPolicy {
         addTest(FT_NN, "Password cannot be null");
         addTest(FT_MIN_L, "Password must be at least " + MIN_LENGTH + " characters");
         addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
+
         addContainsAtLeast(SPECIAL_CHARACTERS, "Password must contain at least 1 special character");
         addContainsAtLeast("1234567890", "Password must contain at least 1 number");
         addContainsAtLeast("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü", "Password must contain at least 1 lowercase letter");
         addContainsAtLeast("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ", "Password must contain at least 1 uppercase letter");
+
+        String errorDis = "Really? Password in 2022 with this type of logic?";
+        addDistinctString("1234", errorDis);
+        addDistinctString("password", errorDis);
+        addDistinctString("constaseña", errorDis);
+        addDistinctString("hola", errorDis);
+    }
+
+    public boolean isValid(String password, String user) {
+        return super.isValid(password) && !stringsAlike(user, password);
     }
 }
