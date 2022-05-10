@@ -2,19 +2,49 @@ package dam.passwordPolicy.model;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 import dam.exception.InvalidDataException;
 
 public class PasswordPolicy {
 
+    /**
+     * The maximum percent of similarity between 2 strings.
+     */
     private static final double SIMILARITY_THRESHOLD = 0.35;
 
+    /**
+     * Arraylist with the different rules to check.
+     */
     protected final ArrayList<Predicate<String>> tests;
+    /**
+     * Messages to show when the test on the same index fails.
+     */
     protected final ArrayList<String> testsMsgs;
-    protected final ArrayList<String> distinctStringsMsgs;
+
+    /**
+     * Strings that can not be similar to the password.
+     *
+     * @see #SIMILARITY_THRESHOLD
+     */
     protected final ArrayList<String> distinctStrings;
+    /**
+     * Messages to show when the password is too similar to the one at the same index in distinctStrings.
+     *
+     * @see #distinctStrings
+     */
+    protected final ArrayList<String> distinctStringsMsgs;
+
+    /**
+     * ArrayList of strings that at least one of the characters inside must be in.
+     * <br>
+     * Example password "123456%" is valid if the array contains "%@", but not if password is "123456".
+     */
     protected final ArrayList<String> containsAtLeast;
+    /**
+     * Messages to show when the password does not contain any character from the set at the same index in containsAtLeast.
+     *
+     * @see #containsAtLeast
+     */
     protected final ArrayList<String> containsAtLeastMsgs;
 
     public PasswordPolicy() {
@@ -29,6 +59,11 @@ public class PasswordPolicy {
 
     // GETTERS
 
+    /**
+     * Returns if the given password is valid.
+     * @param password The password to check.
+     * @return True if the password is valid, false otherwise.
+     */
     public boolean isValid(String password) {
         int i;
         for (i = 0; i < tests.size(); i++)
@@ -51,6 +86,16 @@ public class PasswordPolicy {
         return true;
     }
 
+    /**
+     * Tests if the given string is valid. If not, throws an InvalidDataException with the error message.
+     * <br>
+     * Follows the same rules as isValid.
+     *
+     * @param password The password to check.
+     * @throws InvalidDataException Error that makes the password invalid.
+     * @see #isValid(String)
+     * @see InvalidDataException
+     */
     public void validate(String password) throws InvalidDataException {
         int i;
         for (i = 0; i < tests.size(); i++)
@@ -71,10 +116,31 @@ public class PasswordPolicy {
             throw new InvalidDataException("Password can only contain the following chars: " + all);
     }
 
+    /**
+     * Tests if the given password is valid, having in mind the user given.
+     * <br>
+     * Follows the same rules as isValid.
+     * @param password The password to check.
+     * @param user The user to use to verify the password.
+     * @return True if the password is valid, false otherwise.
+     *
+     * @see #isValid(String)
+     */
     public boolean isValid(String password, String user) {
         return this.isValid(password) && !stringsAlike(user, password);
     }
 
+    /**
+     * Checks if the given string is valid, having in mind the user given.
+     * <br>
+     * Follows the same rules as isValid, throwing an InvalidDataException if not valid.
+     * @param password The password to check.
+     * @param user The user to use to verify the password.
+     * @throws InvalidDataException Error that makes the password invalid.
+     *
+     * @see #validate(String)
+     * @see InvalidDataException
+     */
     public void validate(String password, String user) {
         this.validate(password);
         if (stringsAlike(user, password))
