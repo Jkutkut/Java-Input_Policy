@@ -71,6 +71,16 @@ public class PasswordPolicy {
             throw new InvalidDataException("Password can only contain the following chars: " + all);
     }
 
+    public boolean isValid(String password, String user) {
+        return this.isValid(password) && !stringsAlike(user, password);
+    }
+
+    public void validate(String password, String user) {
+        this.validate(password);
+        if (stringsAlike(user, password))
+            throw new InvalidDataException("Password cannot be similar to the user name");
+    }
+
     // SETTERS
 
     public void addTest(Predicate<String> test, String msg) {

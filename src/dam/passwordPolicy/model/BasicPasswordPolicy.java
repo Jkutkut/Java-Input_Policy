@@ -38,14 +38,4 @@ public class BasicPasswordPolicy extends PasswordPolicy {
         addDistinctString("root", errorDis);
         addDistinctString("admin", errorDis);
     }
-
-    public boolean isValid(String password, String user) {
-        return super.isValid(password) && !stringsAlike(user, password);
-    }
-
-    public void validate(String password, String user) {
-        super.validate(password);
-        if (stringsAlike(user, password))
-            throw new InvalidDataException("Password cannot be similar to the user name");
-    }
 }
