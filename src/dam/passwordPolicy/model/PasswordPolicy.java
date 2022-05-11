@@ -16,6 +16,21 @@ public class PasswordPolicy {
     private static final double SIMILARITY_THRESHOLD = 0.35;
 
     /**
+     * Numbers.
+     */
+    public static final String NUMBERS = "0123456789";
+
+    /**
+     * Lowercase letters.
+     */
+    public static final String LOWER_LETTERS = "abcdefghijklmnopqrstuvwxyzáéíóúäëïöü";
+
+    /**
+     * Uppercase letters.
+     */
+    public static final String UPPER_LETTERS = LOWER_LETTERS.toUpperCase();
+
+    /**
      * Arraylist with the different rules to check.
      */
     protected final ArrayList<Predicate<String>> tests;
