@@ -30,9 +30,9 @@ public class BasicPasswordPolicy extends PasswordPolicy {
         addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
 
         addContainsAtLeast(SPECIAL_CHARACTERS, "Password must contain at least 1 special character (" + SPECIAL_CHARACTERS + ")");
-        addContainsAtLeast("1234567890", "Password must contain at least 1 number");
-        addContainsAtLeast("abcdefghijklmnopqrstuvwxyzáéíóúäëïöü", "Password must contain at least 1 lowercase letter");
-        addContainsAtLeast("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚÄËÏÖÜ", "Password must contain at least 1 uppercase letter");
+        addContainsAtLeast(NUMBERS, "Password must contain at least 1 number");
+        addContainsAtLeast(LOWER_LETTERS, "Password must contain at least 1 lowercase letter");
+        addContainsAtLeast(UPPER_LETTERS, "Password must contain at least 1 uppercase letter");
 
         String errorDis = "Really? Password in 2022 with this type of logic?";
         addDistinctString("1234", errorDis);
