@@ -19,10 +19,10 @@ public class PasswordPolicy extends InputPolicy {
 
     public PasswordPolicy() {
         super();
-        addDefaultTests();
+        addTests();
     }
 
-    private void addDefaultTests() {
+    private void addTests() {
         addTest(FT_NN, "Password cannot be null");
         addTest(FT_MIN_L, "Password must be at least " + MIN_LENGTH + " characters");
         addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
