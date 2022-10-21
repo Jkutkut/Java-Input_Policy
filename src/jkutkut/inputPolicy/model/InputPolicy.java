@@ -135,6 +135,36 @@ public class InputPolicy {
     }
 
     /**
+     * Returns a multiline string with all the errors of the string given.
+     * If all the tests pass, returns null.
+     * @param str The string to check.
+     * @return A multiline string with all the errors of the string given.
+     */
+    public String testAll(String str) {
+        String errors = "";
+        int i;
+
+        for (i = 0; i < tests.size(); i++)
+            if (!tests.get(i).test(str))
+                errors += testsMsgs.get(i) + "\n";
+        for (i = 0; i < distinctStrings.size(); i++)
+            if (stringsAlike(str, distinctStrings.get(i)))
+                errors += distinctStringsMsgs.get(i) + "\n";
+        for (i = 0; i < containsAtLeast.size(); i++)
+            if (!str.matches(String.format(".*[%s].*", containsAtLeast.get(i))))
+                errors += containsAtLeastMsgs.get(i) + "\n";
+        String all = "";
+        for (i = 0; i < containsAtLeast.size(); i++)
+            all += containsAtLeast.get(i);
+        if (!str.matches(String.format("[%s]*", all)))
+            errors += "Password can only contain the following chars: " + all + "\n";
+
+        if (errors.length() == 0)
+            return null;
+        return errors;
+    }
+
+    /**
      * Tests if the given password is valid, having in mind the user given.
      * <br>
      * Follows the same rules as isValid.
