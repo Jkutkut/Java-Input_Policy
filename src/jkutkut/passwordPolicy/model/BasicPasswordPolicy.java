@@ -1,6 +1,4 @@
-package dam.passwordPolicy.model;
-
-import dam.exception.InvalidDataException;
+package jkutkut.passwordPolicy.model;
 
 import java.util.function.Predicate;
 
@@ -9,7 +7,7 @@ import java.util.function.Predicate;
  *
  * @author jkutkut
  */
-public class BasicPasswordPolicy extends PasswordPolicy {
+public class BasicPasswordPolicy extends InputPolicy {
     private static final int MIN_LENGTH = 8;
     private static final int MAX_LENGTH = 20;
 

@@ -1,6 +1,6 @@
-package dam.passwordPolicy.test;
+package jkutkut.passwordPolicy.test;
 
-import dam.passwordPolicy.model.BasicPasswordPolicy;
+import jkutkut.passwordPolicy.model.BasicPasswordPolicy;
 
 import java.util.Scanner;
 

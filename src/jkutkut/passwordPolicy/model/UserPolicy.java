@@ -1,8 +1,8 @@
-package dam.passwordPolicy.model;
+package jkutkut.passwordPolicy.model;
 
 import java.util.function.Predicate;
 
-public class UserPolicy extends PasswordPolicy{
+public class UserPolicy extends InputPolicy {
     private static final int MIN_LENGTH = 3;
     private static final int MAX_LENGTH = 20;
 
@@ -16,11 +16,11 @@ public class UserPolicy extends PasswordPolicy{
     }
 
     private void addDefaultTests() {
-        addTest(FT_NN, "Password cannot be null");
-        addTest(FT_MIN_L, "Password must be at least " + MIN_LENGTH + " characters");
-        addTest(FT_MAX_L, "Password must be at most " + MAX_LENGTH + " characters");
+        addTest(FT_NN, "User cannot be null");
+        addTest(FT_MIN_L, "User must be at least " + MIN_LENGTH + " characters long");
+        addTest(FT_MAX_L, "User must be at most " + MAX_LENGTH + " characters long");
 
-        addContainsAtLeast("1234567890", "Password must contain at least 1 number");
+        addContainsAtLeast("1234567890", "User must contain at least 1 number");
         addContainsAtLeast(LOWER_LETTERS, "Password must contain at least 1 lowercase letter");
         addContainsAtLeast(UPPER_LETTERS, "Password must contain at least 1 uppercase letter");
     }

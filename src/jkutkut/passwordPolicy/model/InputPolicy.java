@@ -1,14 +1,14 @@
-package dam.passwordPolicy.model;
+package jkutkut.passwordPolicy.model;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import dam.exception.InvalidDataException;
+import jkutkut.exception.InvalidDataException;
 
 /**
  * @author Jkutkut
  */
-public class PasswordPolicy {
+public class InputPolicy {
 
     /**
      * The maximum percent of similarity between 2 strings.
@@ -65,7 +65,7 @@ public class PasswordPolicy {
      */
     protected final ArrayList<String> containsAtLeastMsgs;
 
-    public PasswordPolicy() {
+    public InputPolicy() {
         tests = new ArrayList<Predicate<String>>();
         distinctStrings = new ArrayList<String>();
         containsAtLeast = new ArrayList<String>();
