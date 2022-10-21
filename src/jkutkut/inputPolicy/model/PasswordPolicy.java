@@ -1,4 +1,4 @@
-package jkutkut.passwordPolicy.model;
+package jkutkut.inputPolicy.model;
 
 import java.util.function.Predicate;
 
@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  *
  * @author jkutkut
  */
-public class BasicPasswordPolicy extends InputPolicy {
+public class PasswordPolicy extends InputPolicy {
     private static final int MIN_LENGTH = 8;
     private static final int MAX_LENGTH = 20;
 
@@ -17,7 +17,7 @@ public class BasicPasswordPolicy extends InputPolicy {
     private static final Predicate<String> FT_MIN_L = (s) -> s.length() >= MIN_LENGTH;
     private static final Predicate<String> FT_MAX_L = (s) -> s.length() <= MAX_LENGTH;
 
-    public BasicPasswordPolicy() {
+    public PasswordPolicy() {
         super();
         addDefaultTests();
     }

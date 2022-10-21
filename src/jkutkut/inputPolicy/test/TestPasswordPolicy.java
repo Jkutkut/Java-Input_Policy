@@ -1,6 +1,6 @@
-package jkutkut.passwordPolicy.test;
+package jkutkut.inputPolicy.test;
 
-import jkutkut.passwordPolicy.model.BasicPasswordPolicy;
+import jkutkut.inputPolicy.model.PasswordPolicy;
 import org.testng.annotations.*;
 
 import static org.testng.AssertJUnit.*;
@@ -9,10 +9,10 @@ import static org.testng.AssertJUnit.*;
  * @author jkutkut
  */
 public class TestPasswordPolicy {
-    BasicPasswordPolicy passwordPolicy;
+    PasswordPolicy passwordPolicy;
     @BeforeClass
     public void setUpClass() {
-        passwordPolicy = new BasicPasswordPolicy();
+        passwordPolicy = new PasswordPolicy();
     }
 
     @Test

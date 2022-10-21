@@ -1,4 +1,4 @@
-package jkutkut.passwordPolicy.model;
+package jkutkut.inputPolicy.model;
 
 import java.util.function.Predicate;
 
@@ -20,8 +20,8 @@ public class UserPolicy extends InputPolicy {
         addTest(FT_MIN_L, "User must be at least " + MIN_LENGTH + " characters long");
         addTest(FT_MAX_L, "User must be at most " + MAX_LENGTH + " characters long");
 
-        addContainsAtLeast("1234567890", "User must contain at least 1 number");
-        addContainsAtLeast(LOWER_LETTERS, "Password must contain at least 1 lowercase letter");
-        addContainsAtLeast(UPPER_LETTERS, "Password must contain at least 1 uppercase letter");
+//        addContainsAtLeast("1234567890", "User must contain at least 1 number");
+//        addContainsAtLeast(LOWER_LETTERS, "Password must contain at least 1 lowercase letter");
+//        addContainsAtLeast(UPPER_LETTERS, "Password must contain at least 1 uppercase letter");
     }
 }

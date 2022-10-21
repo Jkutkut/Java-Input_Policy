@@ -1,6 +1,6 @@
-package jkutkut.passwordPolicy.test;
+package jkutkut.inputPolicy.test;
 
-import jkutkut.passwordPolicy.model.BasicPasswordPolicy;
+import jkutkut.inputPolicy.model.PasswordPolicy;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class ExampleExecution {
     }
 
     private static void askCredentials(Scanner sc) {
-        BasicPasswordPolicy policy = new BasicPasswordPolicy();
+        PasswordPolicy policy = new PasswordPolicy();
         String username, password;
 
         System.out.println("Enter a username: ");

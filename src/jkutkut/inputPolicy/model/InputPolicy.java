@@ -1,4 +1,4 @@
-package jkutkut.passwordPolicy.model;
+package jkutkut.inputPolicy.model;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
