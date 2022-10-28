@@ -10,6 +10,8 @@ import java.util.function.Predicate;
  * @author jkutkut
  */
 public class DatePolicy extends InputPolicy {
+    protected static final String POLICY_NAME = "Date";
+
     protected static final int DAY_IDX = 0;
     protected static final int MONTH_IDX = 1;
     protected static final int YEAR_IDX = 2;
@@ -68,10 +70,18 @@ public class DatePolicy extends InputPolicy {
         addTests();
     }
 
-    private void addTests() {
-        addTest(Objects::nonNull, "Date cannot be null");
-        addTest(validDateFormat, "Date must be in the format dd/mm/yyyy (regex not met)");
-        addTest(validDateIntegers, "Date must be in the format dd/mm/yyyy (values not correct)");
-        addTest(validDate, "Date is not valid.");
+    protected void addTests() {
+        addTest(Objects::nonNull, String.format("%s cannot be null", getPolicyName()));
+        addTest(validDateFormat, String.format("%s must be in the format dd/mm/yyyy (regex not met)", getPolicyName()));
+        addTest(validDateIntegers, String.format(
+                "%s must be in the format dd/mm/yyyy (values not correct)",
+                POLICY_NAME
+        ));
+        addTest(validDate, String.format("%s is not valid.", getPolicyName()));
+    }
+
+    // ******** Getters ********
+    protected String getPolicyName() {
+        return POLICY_NAME;
     }
 }
