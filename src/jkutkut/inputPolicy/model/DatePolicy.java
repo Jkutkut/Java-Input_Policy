@@ -4,13 +4,17 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
+/**
+ * Validator for dates given as strings with the format dd/mm/yyyy.
+ *
+ * @author jkutkut
+ */
 public class DatePolicy extends InputPolicy {
     protected static final int DAY_IDX = 0;
     protected static final int MONTH_IDX = 1;
     protected static final int YEAR_IDX = 2;
 
-    // Tools
-
+    // ******** Tools ********
     protected static final BiFunction<Integer, Integer, Integer> daysOfMonth = (month, year) -> {
         if (month == 2) {
             if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
@@ -22,8 +26,7 @@ public class DatePolicy extends InputPolicy {
         return 31;
     };
 
-    // Tests
-
+    // ******** Tests ********
     protected static final Predicate<String> validDateFormat = d -> {
         if (d == null) return false;
         return d.matches("\\d{1,2}/\\d{1,2}/\\d{4}");

@@ -2,6 +2,11 @@ package jkutkut.inputPolicy.model;
 
 import java.util.function.Predicate;
 
+/**
+ * Policy to validate a user.
+ *
+ * @author jkutkut
+ */
 public class UserPolicy extends InputPolicy {
     protected static final int MIN_LENGTH = 3;
     protected static final int MAX_LENGTH = 20;
@@ -23,11 +28,9 @@ public class UserPolicy extends InputPolicy {
         addTest(FT_NN, "User cannot be null");
         addTest(FT_MIN_L, String.format(MIN_L_MSG, getPolicyName(), getMinLength()));
         addTest(FT_MAX_L, String.format(MAX_L_MSG, getPolicyName(), getMaxLength()));
-
-//        addContainsAtLeast("1234567890", "User must contain at least 1 number");
-//        addContainsAtLeast(LOWER_LETTERS, "Password must contain at least 1 lowercase letter");
-//        addContainsAtLeast(UPPER_LETTERS, "Password must contain at least 1 uppercase letter");
     }
+
+    // ****** GETTERS ******
 
     protected String getPolicyName() {
         return POLICY_NAME;

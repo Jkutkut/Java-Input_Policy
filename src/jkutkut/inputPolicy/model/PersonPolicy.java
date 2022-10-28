@@ -1,7 +1,17 @@
 package jkutkut.inputPolicy.model;
 
+import java.util.ArrayList;
+
+/**
+ * Policy to validate a person.
+ *
+ * @author jkutkut
+ */
 public class PersonPolicy {
 
+    /**
+     * Policy to validate the name of a person.
+     */
     protected static class NamePolicy extends UserPolicy {
         protected static final String POLICY_NAME = "Name";
         protected static final int MIN_LENGTH = 2;
@@ -20,6 +30,9 @@ public class PersonPolicy {
         }
     }
 
+    /**
+     * Policy to validate the last name of a person.
+     */
     private static class LastNamePolicy extends NamePolicy {
         protected static final String POLICY_NAME = "Last Name";
 
@@ -28,7 +41,10 @@ public class PersonPolicy {
         }
     }
 
-    private class StreetPolicy extends NamePolicy {
+    /**
+     * Policy to validate the street of a person.
+     */
+    private static class StreetPolicy extends NamePolicy {
         protected static final String POLICY_NAME = "Street";
 
         protected String getPolicyName() {
@@ -36,7 +52,10 @@ public class PersonPolicy {
         }
     }
 
-    private class CityPolicy extends NamePolicy {
+    /**
+     * Policy to validate the city of a person.
+     */
+    private static class CityPolicy extends NamePolicy {
         protected static final String POLICY_NAME = "City";
 
         protected String getPolicyName() {
@@ -44,12 +63,11 @@ public class PersonPolicy {
         }
     }
 
-    private NamePolicy namePolicy;
-    private DatePolicy birthdayPolicy;
-    private LastNamePolicy lastNamePolicy;
-    private StreetPolicy streetPolicy;
-    private CityPolicy cityPolicy;
-
+    private final NamePolicy namePolicy;
+    private final DatePolicy birthdayPolicy;
+    private final LastNamePolicy lastNamePolicy;
+    private final StreetPolicy streetPolicy;
+    private final CityPolicy cityPolicy;
 
     public PersonPolicy() {
         namePolicy = new NamePolicy();
@@ -59,27 +77,36 @@ public class PersonPolicy {
         cityPolicy = new CityPolicy();
     }
 
+    /**
+     * Tests if the values of a person is valid.
+     *
+     * @param fname First name.
+     * @param lname Last name.
+     * @param street Street address.
+     * @param city City address.
+     * @param sPostalCode Postal code address.
+     * @param birthday Birthday with format dd/mm/yyyy.
+     * @return A string with all the error found, one per line.
+     */
     public String test(String fname, String lname, String street, String city, String sPostalCode, String birthday) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(namePolicy.testAll(fname) + "\n");
-        sb.append(lastNamePolicy.testAll(lname) + "\n");
+        ArrayList<String> errors = new ArrayList<>();
+
+        errors.add(namePolicy.testAll(fname));
+        errors.add(lastNamePolicy.testAll(lname));
         try {
             int postalCode = Integer.parseInt(sPostalCode);
             if (postalCode < 10000) {
-                sb.append("Postal code must be at least 5 digits long\n");
+                errors.add("Postal code must be at least 5 digits long\n");
             }
             else if (postalCode > 99999) {
-                sb.append("Postal code must be at most 5 digits long\n");
+                errors.add("Postal code must be at most 5 digits long\n");
             }
         } catch (NumberFormatException e) {
-            sb.append("Postal code must be a number");
+            errors.add("Postal code must be a number");
         }
-        sb.append(streetPolicy.testAll(street) + "\n");
-        sb.append(cityPolicy.testAll(city) + "\n");
-        sb.append(birthdayPolicy.testAll(birthday) + "\n");
-        String result = sb.toString();
-        if (result.trim().isEmpty())
-            return "";
-        return result;
+        errors.add(streetPolicy.testAll(street));
+        errors.add(cityPolicy.testAll(city));
+        errors.add(birthdayPolicy.testAll(birthday));
+        return String.join("\n", errors).trim();
     }
 }

@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import jkutkut.exception.InvalidDataException;
 
 /**
+ * Class to validate any string input.
+ *
  * @author Jkutkut
  */
 public class InputPolicy {
