@@ -24,7 +24,7 @@ public class UserPolicy extends InputPolicy {
         addTests();
     }
 
-    private void addTests() {
+    protected void addTests() {
         addTest(FT_NN, "User cannot be null");
         addTest(FT_MIN_L, String.format(MIN_L_MSG, getPolicyName(), getMinLength()));
         addTest(FT_MAX_L, String.format(MAX_L_MSG, getPolicyName(), getMaxLength()));

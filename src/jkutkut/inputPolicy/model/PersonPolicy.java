@@ -16,6 +16,12 @@ public class PersonPolicy {
         protected static final String POLICY_NAME = "Name";
         protected static final int MIN_LENGTH = 2;
         protected static final int MAX_LENGTH = Integer.MAX_VALUE;
+        protected static final Predicate<String> VALID_NAME_REGEX = (s) -> s.matches("([a-zA-Záéíóú]+ ?){1,6}");
+
+        protected void addTests() {
+            super.addTests();
+            addTest(VALID_NAME_REGEX, "Name must be a valid name");
+        }
 
         protected String getPolicyName() {
             return POLICY_NAME;
